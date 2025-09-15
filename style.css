@@ -359,23 +359,33 @@ footer {
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    transform: scale(0);
-    opacity: 0;
-    animation: zoomInDefeat 0.7s 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-@keyframes zoomInDefeat {
+@keyframes zoomInVideo {
     from { transform: scale(0); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
 
-#defeat-gif {
+@keyframes fadeInButton {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#defeat-video {
     max-width: 90vw;
     max-height: 60vh;
     width: 450px;
     border-radius: var(--border-radius);
     box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
     object-fit: cover;
+    /* Initial state for animation */
+    transform: scale(0);
+    opacity: 0;
+}
+
+/* Class added by JS to trigger animation */
+.video-enter-active {
+    animation: zoomInVideo 0.7s 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 #accept-defeat-btn {
@@ -391,11 +401,20 @@ footer {
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 0 4px 10px rgba(217, 48, 79, 0.4);
+    /* Initial state for animation */
+    opacity: 0;
+    transform: translateY(20px);
 }
+
+/* Class added by JS to trigger animation */
+.button-enter-active {
+    animation: fadeInButton 0.5s 1.2s ease-out forwards;
+}
+
 
 #accept-defeat-btn:hover {
     background-color: #A3243B; /* Darker red */
-    transform: scale(1.05);
+    transform: scale(1.05) translateY(0); /* Adjust transform on hover */
 }
 
 #fireworks-container {

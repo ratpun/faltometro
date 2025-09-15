@@ -62,9 +62,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const addMateriaBtn = document.getElementById('addMateriaBtn');
     const materiaInput = document.getElementById('materiaInput');
     const defeatOverlay = document.getElementById('defeat-overlay');
-    const defeatGif = document.getElementById('defeat-gif');
+    const defeatVideo = document.getElementById('defeat-video');
     const acceptDefeatBtn = document.getElementById('accept-defeat-btn');
     const fireworksContainer = document.getElementById('fireworks-container');
+    let fireworksInterval = null; // Variável para controlar o loop dos fogos
 
     // --- Local Storage Functions ---
     function getMateriasFromStorage() {
@@ -227,21 +228,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Defeat Screen Functions ---
     function showDefeatScreen() {
-        defeatGif.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2R4dWFkZnplcGdmMGl4MDhqcXJ2M3M2MWM3eW9wN21rc21oamY0aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LcnYxGUe2SkrQk30I6/giphy.gif";
+        // Adiciona as classes para iniciar as animações
+        defeatVideo.classList.add('video-enter-active');
+        acceptDefeatBtn.classList.add('button-enter-active');
+
+        defeatVideo.src = "video.mp4";
+        defeatVideo.play();
         defeatOverlay.classList.remove('hidden');
-        createFireworks(30);
+        
+        if (fireworksInterval) clearInterval(fireworksInterval);
+        fireworksContainer.innerHTML = ''; // Limpa fogos anteriores
+        createFireworks(30); // Rajada inicial
+        fireworksInterval = setInterval(() => createFireworks(30), 2500); // Inicia o loop
     }
 
     function hideDefeatScreen() {
         defeatOverlay.classList.add('hidden');
-        const modal = defeatOverlay.querySelector('.defeat-modal');
-        modal.style.animation = 'none';
-        void modal.offsetHeight; // Trigger reflow
-        modal.style.animation = null;
         
+        // Remove as classes de animação para resetar o estado
+        defeatVideo.classList.remove('video-enter-active');
+        acceptDefeatBtn.classList.remove('button-enter-active');
+        
+        if (fireworksInterval) {
+            clearInterval(fireworksInterval); // Para o loop
+            fireworksInterval = null;
+        }
+        
+        // Aguarda a transição de fade-out do overlay antes de limpar
         setTimeout(() => {
             fireworksContainer.innerHTML = '';
-            defeatGif.src = "";
+            defeatVideo.pause();
+            defeatVideo.src = "";
         }, 500);
     }
 
