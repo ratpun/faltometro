@@ -1,0 +1,475 @@
+/* --- Global Styles & Variables --- */
+:root {
+    --bg-primary: #121212;
+    --bg-secondary: #1E1E1E;
+    --bg-tertiary: #282828;
+    --bg-card-header: #2A2A2A;
+    --text-primary: #EAEAEA;
+    --text-secondary: #A0A0A0;
+    --accent-primary: #8A2BE2;
+    --accent-hover: #7B1FA2;
+
+    --status-safe-bg: #1DB954;
+    --status-warn-bg: #F59E0B;
+    --status-danger-bg: #D9304F;
+    --status-failed-bg: #000000;
+    --status-default-bg: #374151;
+
+    --border-radius: 8px;
+    --shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Layout --- */
+.container {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+header p {
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+}
+
+.main-content {
+    max-width: 100%;
+}
+
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* --- Form --- */
+#add-materia-form {
+    background-color: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.form-controls {
+    display: flex;
+    gap: 1rem;
+}
+
+#materiaInput {
+    flex-grow: 1;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    background-color: var(--bg-tertiary);
+    border: 1px solid #333;
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+#materiaInput::placeholder {
+    color: var(--text-secondary);
+}
+
+#materiaInput:focus {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.3);
+}
+
+#addMateriaBtn {
+    background-color: var(--accent-primary);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+#addMateriaBtn:hover {
+    background-color: var(--accent-hover);
+}
+
+/* --- Materias Container --- */
+#materiasContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* --- Card Styling --- */
+.materia-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    border-left-width: 5px;
+    border-left-color: transparent;
+    overflow: hidden;
+    transition: border-left-color 0.5s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.materia-card:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+}
+
+.materia-header {
+    background-color: var(--bg-card-header);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.materia-nome {
+    font-size: 1.1rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 0.5rem;
+}
+
+.materia-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.materia-controls button {
+    background-color: rgba(0,0,0,0.2);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.materia-controls button:hover {
+    background-color: rgba(0,0,0,0.4);
+}
+
+.materia-controls .delete-btn {
+    color: var(--text-secondary);
+}
+
+.materia-controls .delete-btn:hover {
+    color: var(--status-danger-bg);
+}
+
+.contador {
+    font-size: 1.25rem;
+    font-weight: 700;
+    min-width: 24px;
+    text-align: center;
+}
+
+/* --- Card Details (Collapsible) --- */
+.materia-details {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1.5rem;
+    transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+    background-color: var(--bg-secondary);
+    border-top: 1px solid transparent;
+}
+
+.materia-details.expanded {
+    max-height: 500px;
+    padding: 1.5rem;
+    border-top-color: var(--bg-tertiary);
+}
+
+.materia-details-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--bg-tertiary);
+}
+
+.materia-details-actions span {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.materia-details-actions button {
+    background-color: var(--bg-tertiary);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.materia-details-actions button:hover {
+    background-color: #383838;
+    transform: scale(1.1);
+}
+
+.materia-details-actions .increment-btn:hover {
+    color: var(--status-safe-bg);
+}
+
+.materia-details-actions .decrement-btn:hover {
+    color: var(--status-warn-bg);
+}
+
+.status-content {
+    text-align: center;
+    padding: 1rem;
+    border: 2px solid transparent;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.status-image {
+    display: block;
+    margin: 0 auto 0.75rem auto;
+    height: 96px;
+    width: 96px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.status-message {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.datas-faltas-container h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.datas-faltas-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 10rem;
+    overflow-y: auto;
+    padding-right: 0.5rem; /* Space for scrollbar */
+}
+
+.datas-faltas-list li {
+    background-color: var(--bg-tertiary);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+
+/* --- Utility & Status --- */
+.hidden {
+    display: none;
+}
+
+.materia-card.status-0 { border-left-color: var(--status-default-bg); }
+.materia-card.status-1-3 { border-left-color: var(--status-safe-bg); }
+.materia-card.status-4-5 { border-left-color: var(--status-warn-bg); }
+.materia-card.status-6 { border-left-color: var(--status-danger-bg); }
+.materia-card.status-7 {
+    border-left-color: var(--status-failed-bg);
+    border: 1px solid var(--status-danger-bg);
+    border-left-width: 5px;
+}
+
+.status-content.status-0 { border-color: var(--status-default-bg); }
+.status-content.status-1-3 { border-color: var(--status-safe-bg); }
+.status-content.status-4-5 { border-color: var(--status-warn-bg); }
+.status-content.status-6 { border-color: var(--status-danger-bg); }
+.status-content.status-7 { border-color: var(--status-danger-bg); }
+
+/* --- Tela de Derrota (Reprovação) & Fireworks --- */
+#defeat-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0s 0.5s;
+}
+
+#defeat-overlay:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease;
+}
+
+.defeat-modal {
+    position: relative; /* To be above fireworks */
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    transform: scale(0);
+    opacity: 0;
+    animation: zoomInDefeat 0.7s 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes zoomInDefeat {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+#defeat-gif {
+    max-width: 90vw;
+    max-height: 60vh;
+    width: 450px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+    object-fit: cover;
+}
+
+#accept-defeat-btn {
+    background-color: var(--status-danger-bg);
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(217, 48, 79, 0.4);
+}
+
+#accept-defeat-btn:hover {
+    background-color: #A3243B; /* Darker red */
+    transform: scale(1.05);
+}
+
+#fireworks-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.firework {
+    position: absolute;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px, 0 0 10px;
+    opacity: 1;
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.2s ease-out;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb {
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover { background: #555; }
+
+/* --- Feather Icons --- */
+i.feather {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.5px;
+}
+#addMateriaBtn i.feather {
+    width: 18px;
+    height: 18px;
+}
+.materia-controls button i.feather {
+    width: 16px;
+    height: 16px;
+}
+.materia-details-actions button i.feather {
+    width: 20px;
+    height: 20px;
+}
+
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+    body { font-size: 14px; }
+    .container { padding: 1.5rem 1rem; }
+    header h1 { font-size: 2rem; }
+    
+    .form-controls {
+        flex-direction: column;
+    }
+
+    .materia-header {
+        padding: 0.75rem;
+        flex-wrap: wrap; /* Allow wrapping if needed */
+        row-gap: 0.5rem; /* Add gap if it wraps */
+    }
+    
+    .materia-nome { font-size: 1rem; }
+
+    .materia-controls { gap: 0.5rem; }
+    .materia-controls button { width: 28px; height: 28px; }
+    .contador { font-size: 1.1rem; }
+}

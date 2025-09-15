@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faltômetro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Faltômetro</h1>
+            <p>Seu assistente de frequência universitária.</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Formulário para adicionar matérias -->
+            <div id="add-materia-form">
+                <div class="form-controls">
+                    <input type="text" id="materiaInput" placeholder="Nome da nova disciplina">
+                    <button id="addMateriaBtn">
+                        <i data-feather="plus"></i> Adicionar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Lista de matérias -->
+            <div id="materiasContainer">
+                <!-- Matérias serão adicionadas aqui dinamicamente -->
+            </div>
+        </div>
+        
+        <footer>
+            <p>Desenvolvido com ❤️ por CicoGPT</p>
+        </footer>
+    </div>
+
+    <!-- Template para nova matéria (hidden) -->
+    <template id="materiaTemplate">
+        <div class="materia-card">
+            <!-- Cabeçalho Clicável -->
+            <div class="materia-header">
+                <h3 class="materia-nome">Nome da Matéria</h3>
+                <div class="materia-controls">
+                    <span class="contador">0</span>
+                    <button class="delete-btn">
+                        <i data-feather="trash-2"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Conteúdo Colapsável -->
+            <div class="materia-details">
+                <div class="materia-details-actions">
+                    <button class="decrement-btn">
+                        <i data-feather="minus"></i>
+                    </button>
+                    <span>Gerenciar Faltas</span>
+                    <button class="increment-btn">
+                        <i data-feather="plus"></i>
+                    </button>
+                </div>
+
+                <div class="status-content hidden">
+                    <img src="" class="status-image">
+                    <p class="status-message"></p>
+                </div>
+
+                <div class="datas-faltas-container hidden">
+                     <h4>Histórico de Faltas:</h4>
+                    <ul class="datas-faltas-list">
+                        <!-- Datas serão adicionadas aqui -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Tela de Derrota (Reprovação) -->
+    <div id="defeat-overlay" class="hidden">
+        <div id="fireworks-container"></div>
+        <div class="defeat-modal">
+            <img id="defeat-gif" src="" alt="Reprovado">
+            <button id="accept-defeat-btn">ACEITAR DERROTA</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
