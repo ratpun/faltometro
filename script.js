@@ -41,13 +41,13 @@ document.addEventListener('DOMContentLoaded', function() {
         '6': {
             cardClass: 'status-6',
             borderClass: 'status-6',
-            message: 'SEIS FALTAS! PERIGO MÁXIMO! Mais uma e é reprovação na certa.',
+            message: 'SEIS FALTAS! PERIGO MÁXIMO! Mais duas e é reprovação na certa.',
             image: '6.png'
         },
         '7': {
             cardClass: 'status-7',
             borderClass: 'status-7',
-            message: 'REPROVADO! O limite de faltas foi excedido. Mais sorte no próximo semestre.',
+            message: 'Você está a uma falta da reprovação. CUIDADO EXTREMO!',
             image: '7.png'
         },
         '8': {
