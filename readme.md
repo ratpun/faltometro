@@ -1,5 +1,7 @@
 # Faltômetro 🎓
 
+https://faltometro.allaska.tech/
+
 Seu assistente de frequência universitária para nunca mais ser reprovado por faltas.
 
 Um PWA (Progressive Web App) simples e moderno, projetado para ajudar estudantes universitários a controlar suas faltas em cada disciplina. Com uma interface escura e minimalista, o Faltômetro oferece uma experiência de usuário limpa e focada.
